@@ -1,0 +1,31 @@
+syntax = "v1"
+
+type (
+    UserRequest {
+        ID int64 `path:"id"`
+    }
+
+    UserReply {
+        ID      int64   `json:"id"`
+        Name    string  `json:"name"`
+        Balance float64 `json:"balance"`
+    }
+
+    UserOrdersRequest {
+        ID int64 `path:"id"`
+    }
+
+    UserOrdersReply {
+        ID       string `json:"id"`
+        State    uint32 `json:"state"`
+        CreateAt string `json:"create_at"`
+    }
+)
+
+service alredomn-api {
+    @handler UserHandler
+    get /user/:id (UserRequest) returns (UserReply)
+
+    @handler UserOrdersHandler
+    get /user/:id/orders (UserOrdersRequest) returns (UserOrdersReply)
+}
